@@ -5,7 +5,15 @@ gem 'rails', '3.2.11'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+gem 'heroku'
+group :development do
+  gem 'sqlite3', '1.3.7'
+end
+
+group :production do
+  gem 'pg'
+end
+
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'private_pub'
 gem 'thin'
