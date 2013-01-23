@@ -46,5 +46,5 @@
 <%= link_to 'Edit', edit_lab_path(@lab) %> |
 <%= link_to 'Back', labs_path %>
 
-<%= subscribe_to "http://classlabsserver.herokuapp.com/tasks/new" %>
-<%= subscribe_to "http://classlabsserver.herokuapp.com/status/update" %>
+<%= subscribe_to "/tasks/new" %>
+<%= subscribe_to "/status/update" %>

@@ -5,6 +5,6 @@ test:
   server: "http://localhost:9292/faye"
   secret_token: "secret"
 production:
-  server: "http://example.com/faye"
+  server: "http://classlabsserver.herokuapp.com/faye"
   secret_token: "6113d2660fe91117bdd673bb4cb5693671a367b66a2d55c0fb04dd16a4e500a5"
-  signature_expiration: 3600 # one hour
+  signature_expiration: 86400 # one day
