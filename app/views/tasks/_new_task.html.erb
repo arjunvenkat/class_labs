@@ -1,0 +1,14 @@
+<tr>
+  <td><%= @task.description %></td>
+  <% @task.enlistment_tasks.each do |enlistment_task| %>
+    <td id="et_<%=enlistment_task.id  %>">
+    <% if enlistment_task.status == "working" %>
+      <%= link_to(image_tag('empty_circle.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "red_light"), remote: true) %>
+    <% elsif enlistment_task.status == "red_light" %>
+      <%= link_to(image_tag('red_dot.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "green_light"), remote: true) %>
+    <% elsif enlistment_task.status == "green_light" %>
+      <%= link_to(image_tag('green_dot.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "working"), remote: true) %>
+      </td>
+    <% end %>
+  <% end %>
+</tr>

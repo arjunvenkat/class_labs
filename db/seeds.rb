@@ -5,3 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+l = Lab.first
+
+l.enlistments.each do |enlistment|
+  Task.all.each do |task|
+    EnlistmentTask.create(enlistment_id: enlistment.id, task_id: task.id)
+  end
+end

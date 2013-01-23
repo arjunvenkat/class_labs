@@ -44,6 +44,9 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
+        @task.lab.enlistments.each do |enlistment|
+          EnlistmentTask.create(enlistment_id: enlistment.id, task_id: @task.id, status: 'working')
+        end
         format.js
         format.html { redirect_to @task.lab, notice: 'Task was successfully created.' }
         format.json { render json: @task, status: :created, location: @task }

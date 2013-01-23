@@ -5,11 +5,31 @@
     <%= @lab.name %>
   </p>
 
-  <ul id="tasks">
+
+  <table id="tasks">
+    <tr>
+      <th>Task Name</th>
+      <% @lab.enlistments.each do |enlistment| %>
+          <th><%= enlistment.user.name %></th>
+      <% end %>
+    </tr>
     <% @tasks.each do |task| %>
-      <li><%= task.description %></li>
+      <tr>
+        <td><%= task.description %></td>
+        <% task.enlistment_tasks.each do |enlistment_task| %>
+          <td id="et_<%=enlistment_task.id  %>">
+          <% if enlistment_task.status == "working" %>
+            <%= link_to(image_tag('empty_circle.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "red_light"), remote: true) %>
+          <% elsif enlistment_task.status == "red_light" %>
+            <%= link_to(image_tag('red_dot.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "green_light"), remote: true) %>
+          <% elsif enlistment_task.status == "green_light" %>
+            <%= link_to(image_tag('green_dot.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "working"), remote: true) %>
+            </td>
+          <% end %>
+        <% end %>
+      </tr>
     <% end %>
-  </ul>
+  </table>
 
   <%= form_for(Task.new, remote: true) do |f| %>
       <%= f.hidden_field :lab_id, value: @lab.id %>
@@ -30,7 +50,7 @@
       <li id="<%= enlistment.user.name %>">
         <%= enlistment.user.name %>
         <% if enlistment.user.status == "red_light" %>
-          <%= link_to(link_to("good to go", set_status_user_path(enlistment.user.id, status: "green_light", lab_id: enlistment.lab.id), remote: true)) %>
+          <%= link_to("good to go", set_status_user_path(enlistment.user.id, status: "green_light", lab_id: enlistment.lab.id), remote: true) %>
           <%= image_tag('red_dot.png', size: "16x16") %>
         <% elsif enlistment.user.status == "green_light" %>
           <%= link_to("help!", set_status_user_path(enlistment.user.id, status: "red_light", lab_id: enlistment.lab.id ), remote: true) %>

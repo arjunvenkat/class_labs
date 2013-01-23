@@ -10,6 +10,7 @@ ClassLabs::Application.routes.draw do
 
   resources :labs
 
+  get '/enlistment_tasks/:id/set_status'=> 'enlistment_tasks#set_status', :as => :set_status_enlistment_task
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

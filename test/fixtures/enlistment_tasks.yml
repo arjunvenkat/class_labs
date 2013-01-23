@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  enlistment_id: MyString
+  integer,: MyString
+  task_id: MyString
+  integer: MyString
+
+two:
+  enlistment_id: MyString
+  integer,: MyString
+  task_id: MyString
+  integer: MyString
