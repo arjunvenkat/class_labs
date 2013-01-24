@@ -55,7 +55,8 @@
       <th>Status</th>
     </tr>
     <% unless @current_enlistment == nil %>
-      <% @current_enlistment.enlistment_tasks.each do |enlistment_task| %>
+      <% sorted_enlistment_tasks = @current_enlistment.enlistment_tasks.sort_by(&:created_at) %>
+      <% sorted_enlistment_tasks.each do |enlistment_task| %>
         <tr>
           <td><%= enlistment_task.task.description %></td>
           <td class="et_<%=enlistment_task.id  %>">
