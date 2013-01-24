@@ -7,10 +7,18 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-l = Lab.first
+l = Lab.create(name: 'lab1')
 
-l.enlistments.each do |enlistment|
-  Task.all.each do |task|
-    EnlistmentTask.create(enlistment_id: enlistment.id, task_id: task.id)
-  end
+u1 = User.create(name: 'arjun', email: 'arjun@arjun.com')
+u2 = User.create(name: 'raghu', email: 'raghu@raghu.com')
+u3 = User.create(name: 'jeff', email: 'jeff@jeff.com')
+
+[u1, u2, u3].each do |user|
+  Enlistment.create(lab_id: l.id, user_id: user.id)
 end
+
+# l.enlistments.each do |enlistment|
+#   Task.all.each do |task|
+#     EnlistmentTask.create(enlistment_id: enlistment.id, task_id: task.id)
+#   end
+# end

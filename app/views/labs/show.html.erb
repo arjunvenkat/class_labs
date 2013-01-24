@@ -17,7 +17,7 @@
       <tr>
         <td><%= task.description %></td>
         <% task.enlistment_tasks.each do |enlistment_task| %>
-          <td id="et_<%=enlistment_task.id  %>">
+          <td class="et_<%=enlistment_task.id  %>">
           <% if enlistment_task.status == "working" %>
             <%= link_to(image_tag('empty_circle.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "red_light"), remote: true) %>
           <% elsif enlistment_task.status == "red_light" %>
@@ -43,24 +43,35 @@
     </div>
   <% end %>
 </div>
+
 <div>
-  <h2>class list</h2>
-  <ul>
-    <% @enlistments.each do |enlistment| %>
-      <li id="<%= enlistment.user.name %>">
-        <%= enlistment.user.name %>
-        <% if enlistment.user.status == "red_light" %>
-          <%= link_to("good to go", set_status_user_path(enlistment.user.id, status: "green_light", lab_id: enlistment.lab.id), remote: true) %>
-          <%= image_tag('red_dot.png', size: "16x16") %>
-        <% elsif enlistment.user.status == "green_light" %>
-          <%= link_to("help!", set_status_user_path(enlistment.user.id, status: "red_light", lab_id: enlistment.lab.id ), remote: true) %>
-        <% end %>
-      </li>
+  <% if @current_enlistment %>
+    <% name = @current_enlistment.user.name %>
+    <h2><%= "#{name.capitalize}'s Tasks" %></h2>
+  <% end %>
+  <table>
+    <tr>
+      <th>Task</th>
+      <th>Status</th>
+    </tr>
+    <% unless @current_enlistment == nil %>
+      <% @current_enlistment.enlistment_tasks.each do |enlistment_task| %>
+        <tr>
+          <td><%= enlistment_task.task.description %></td>
+          <td class="et_<%=enlistment_task.id  %>">
+          <% if enlistment_task.status == "working" %>
+            <%= link_to(image_tag('empty_circle.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "red_light"), remote: true) %>
+          <% elsif enlistment_task.status == "red_light" %>
+            <%= link_to(image_tag('red_dot.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "green_light"), remote: true) %>
+          <% elsif enlistment_task.status == "green_light" %>
+            <%= link_to(image_tag('green_dot.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "working"), remote: true) %>
+          <% end %>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
-  </ul>
-
+  </table>
 </div>
-
 
 
 <%= link_to 'Edit', edit_lab_path(@lab) %> |

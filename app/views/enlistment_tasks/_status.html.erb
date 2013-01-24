@@ -1,4 +1,4 @@
-<td id="et_<%= @enlistment_task.id %>">
+<td class="et_<%= @enlistment_task.id %>">
   <% if @enlistment_task.status == "working" %>
     <%= link_to(image_tag('empty_circle.png', size: '16x16'), set_status_enlistment_task_path(@enlistment_task.id, status: "red_light"), remote: true) %>
   <% elsif @enlistment_task.status == "red_light" %>

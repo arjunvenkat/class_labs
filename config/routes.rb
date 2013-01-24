@@ -12,6 +12,9 @@ ClassLabs::Application.routes.draw do
 
   get '/enlistment_tasks/:id/set_status'=> 'enlistment_tasks#set_status', :as => :set_status_enlistment_task
 
+  get '/login' => 'sessions#new'
+  post "sessions" => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

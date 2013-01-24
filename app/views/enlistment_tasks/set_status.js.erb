@@ -1,4 +1,4 @@
 <% publish_to '/status/update' do %>
-  $("#et_<%= @enlistment_task.id %>").replaceWith("<%= j(render('status')) %>");
+  $(".et_<%= @enlistment_task.id %>").replaceWith("<%= j(render('status')) %>");
 <% end %>
 

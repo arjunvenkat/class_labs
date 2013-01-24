@@ -16,9 +16,9 @@ ActiveRecord::Schema.define(:version => 20130123194201) do
   create_table "enlistment_tasks", :force => true do |t|
     t.integer  "enlistment_id"
     t.integer  "task_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.string   "status"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.string   "status",        :default => "working"
   end
 
   create_table "enlistments", :force => true do |t|
@@ -44,10 +44,10 @@ ActiveRecord::Schema.define(:version => 20130123194201) do
   create_table "users", :force => true do |t|
     t.string   "email"
     t.string   "password_digest"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "name"
-    t.string   "status"
+    t.string   "status",          :default => "working"
   end
 
 end
