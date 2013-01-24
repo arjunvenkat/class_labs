@@ -41,7 +41,7 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(params[:task])
-
+    @user = User.find_by_name(session[:user_name])
     respond_to do |format|
       if @task.save
         @task.lab.enlistments.each do |enlistment|
