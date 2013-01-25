@@ -8,6 +8,7 @@ gem 'rails', '3.2.11'
 gem 'heroku'
 group :development do
   gem 'sqlite3', '1.3.7'
+  gem "better_errors"
 end
 
 group :production do
@@ -27,7 +28,7 @@ group :assets do
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
-
+  gem 'zurb-foundation'
   gem 'uglifier', '>= 1.0.3'
 end
 
