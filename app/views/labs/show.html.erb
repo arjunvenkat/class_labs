@@ -16,7 +16,9 @@
     <% @tasks.each do |task| %>
       <tr>
         <td><%= task.description %></td>
-        <% task.enlistment_tasks.each do |enlistment_task| %>
+        <% @lab.enlistments.each do |enlistment| %>
+
+          <% enlistment_task = EnlistmentTask.where(enlistment_id: enlistment.id, task_id: task.id).first %>
           <td class="et_<%=enlistment_task.id  %>">
           <% if enlistment_task.status == "working" %>
             <%= link_to(image_tag('empty_circle.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "red_light"), remote: true) %>

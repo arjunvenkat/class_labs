@@ -3,4 +3,5 @@ class Task < ActiveRecord::Base
 
   belongs_to :lab
   has_many :enlistment_tasks, :dependent =>:destroy
+  has_many :enlistments, :through => :enlistment_tasks
 end
