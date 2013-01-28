@@ -15,6 +15,7 @@
     </tr>
     <% @tasks.each do |task| %>
       <tr>
+        <!-- weird strategy for listing enlistments tasks below to hack pas a heroku error that reordered the list on refresh -->
         <td><%= task.description %></td>
         <% @lab.enlistments.each do |enlistment| %>
 
