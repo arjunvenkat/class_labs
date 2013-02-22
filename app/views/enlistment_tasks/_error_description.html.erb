@@ -1,0 +1,7 @@
+<div id="error-description-<%= @enlistment_task.id  %>">
+  <%= form_tag set_error_description_enlistment_task_path(@enlistment_task.id) do %>
+    <%= @enlistment_task.task.description %>
+    <%= text_field_tag :error_description, @enlistment_task.error_description %>
+    <%= submit_tag 'submit error' %>
+  <% end -%>
+</div>

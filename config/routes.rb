@@ -10,6 +10,8 @@ ClassLabs::Application.routes.draw do
 
   resources :labs
 
+  resources :enlistments
+
   get '/enlistment_tasks/:id/set_status'=> 'enlistment_tasks#set_status', :as => :set_status_enlistment_task
   post '/enlistment_tasks/:id/set_error_description' => 'enlistment_tasks#set_error_description', :as => :set_error_description_enlistment_task
 

@@ -1,9 +1,0 @@
-<li id="<%= @user.name %>">
-  <%= @user.name %>
-  <% if @user.status == "red_light" %>
-    <%= link_to("good to go", set_status_user_path(@user.id, status: "green_light", lab_id: @lab.id), remote: true) %>
-    <%= image_tag('red_dot.png', size: "16x16") %>
-  <% elsif @user.status == "green_light" %>
-    <%= link_to("help!", set_status_user_path(@user.id, status: "red_light", lab_id: @lab.id), remote: true) %>
-  <% end %>
-</li>

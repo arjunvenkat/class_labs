@@ -1,4 +1,9 @@
 <% publish_to '/status/update' do %>
   $(".et_<%= @enlistment_task.id %>").replaceWith("<%= j(render('status')) %>");
+  <% if @enlistment_task.status == 'red_light' %>
+    $("#error-descriptions").append("<%= j(render('error_description')) %>")
+  <% elsif @enlistment_task.status == 'green_light' %>
+    $("#error-description-<%= @enlistment_task.id %>").detach()
+  <% end %>
 <% end %>
 

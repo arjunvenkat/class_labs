@@ -5,10 +5,11 @@
   <%= @user.email %>
 </p>
 
-<p>
-  <b>Password digest:</b>
-  <%= @user.password_digest %>
-</p>
+<ul>
+<% @user.enlistments.each do |enlistment| %>
+  <li><%= link_to enlistment.lab.name, enlistment %></li>
+<% end %>
+</ul>
 
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

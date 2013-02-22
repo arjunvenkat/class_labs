@@ -22,6 +22,7 @@ class LabsController < ApplicationController
     unless @current_user == nil
       @current_enlistment = Enlistment.where(:user_id => @current_user.id, :lab_id => @lab.id).first
     end
+    @red_light_tasks = @current_enlistment.red_light_tasks
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @lab }

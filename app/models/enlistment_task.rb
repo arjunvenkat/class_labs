@@ -3,4 +3,5 @@ class EnlistmentTask < ActiveRecord::Base
 
   belongs_to :enlistment
   belongs_to :task
+
 end

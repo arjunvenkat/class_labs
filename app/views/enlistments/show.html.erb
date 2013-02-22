@@ -1,0 +1,9 @@
+
+
+<% @enlistment.enlistment_tasks.each do |et| %>
+  <div>
+    <h3><%= et.task.description %></h3>
+    <%= link_to "I'm done!", set_status_enlistment_task_path(et.id, status: 'green_light')  %>
+
+  </div>
+<% end %>
