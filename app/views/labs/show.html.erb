@@ -1,4 +1,10 @@
 <p id="notice"><%= notice %></p>
+
+<div class="tooltip">
+tooltip
+  <span>this is a tooltip</span>
+</div>
+
 <div>
   <p>
     <b>Name:</b>
@@ -24,7 +30,10 @@
           <% if enlistment_task.status == "working" %>
             <%= link_to(image_tag('empty_circle.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "red_light"), remote: true) %>
           <% elsif enlistment_task.status == "red_light" %>
-            <%= link_to(image_tag('red_dot.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "green_light"), remote: true) %>
+            <%= link_to(set_status_enlistment_task_path(enlistment_task.id, status: "green_light"), remote: true, class: 'tooltip') do %>
+              <%= image_tag('red_dot.png', size: '16x16') %>
+              <span><%= enlistment_task.error_description %></span>
+            <% end %>
           <% elsif enlistment_task.status == "green_light" %>
             <%= link_to(image_tag('green_dot.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "working"), remote: true) %>
             </td>
@@ -66,7 +75,10 @@
           <% if enlistment_task.status == "working" %>
             <%= link_to(image_tag('empty_circle.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "red_light"), remote: true) %>
           <% elsif enlistment_task.status == "red_light" %>
-            <%= link_to(image_tag('red_dot.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "green_light"), remote: true) %>
+            <%= link_to(set_status_enlistment_task_path(enlistment_task.id, status: "green_light"), remote: true, class: 'tooltip') do %>
+              <%= image_tag('red_dot.png', size: '16x16') %>
+              <span><%= enlistment_task.error_description %></span>
+            <% end %>
           <% elsif enlistment_task.status == "green_light" %>
             <%= link_to(image_tag('green_dot.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "working"), remote: true) %>
           <% end %>
@@ -77,6 +89,21 @@
   </table>
 </div>
 
+<% if @enlistment_tasks_with_errors.present? %>
+  <div>
+    Add Error Descriptions
+    <% @enlistment_tasks_with_errors.each do |et| %>
+      <div>
+        <%= form_tag set_error_description_enlistment_task_path(et.id) do %>
+          <%= et.task.description %>
+          <%= text_field_tag :error_description, et.error_description %>
+          <%= submit_tag 'submit error' %>
+        <% end -%>
+      </div>
+    <% end -%>
+  </div>
+
+<% end %>
 
 <%= link_to 'Edit', edit_lab_path(@lab) %> |
 <%= link_to 'Back', labs_path %>

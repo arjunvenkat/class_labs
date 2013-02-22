@@ -11,4 +11,11 @@ class EnlistmentTasksController < ApplicationController
       end
     end
   end
+
+  def set_error_description
+    enlistment_task = EnlistmentTask.find_by_id(params[:id])
+    enlistment_task.error_description = params[:error_description]
+    enlistment_task.save
+    redirect_to enlistment_task.enlistment.lab, notice: 'Error description saved'
+  end
 end
