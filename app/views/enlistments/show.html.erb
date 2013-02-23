@@ -1,9 +1,46 @@
 
+<div class="container">
+  <div class="row">
+    <div class="span12">
+      <h2>Lab: <%= @enlistment.lab.name %> </h2>
+    </div>
+  </div>
 
-<% @enlistment.enlistment_tasks.each do |et| %>
-  <div>
-    <h3><%= et.task.description %></h3>
-    <%= link_to "I'm done!", set_status_enlistment_task_path(et.id, status: 'green_light')  %>
+  <div class="row">
+    <div class="span12">
+      <% @enlistment.enlistment_tasks.each do |et| %>
+        <div id="et-<%= et.id %>" class="et-<%= et.status %>">
+          <h3><%= et.task.description %></h3>
+          <% if et.status == 'working' %>
+            <%= link_to set_status_enlistment_task_path(et.id, status: 'green_light', coming_from: 'enlistment'), id: "et-#{et.id}-green-light-btn", class: 'btn btn-success' do  %>
+              <%= "I'm done!" %>
+            <% end %>
+            <%= link_to set_status_enlistment_task_path(et.id, status: 'red_light', coming_from: 'enlistment'), id: "et-#{et.id}-red-light-btn", class: 'btn btn-danger' do %>
+              <%= "I'm stuck!" %>
+            <% end %>
+          <% elsif et.status == 'red_light' %>
+            <%= link_to set_status_enlistment_task_path(et.id, status: 'green_light', coming_from: 'enlistment'), id: "et-#{et.id}-red-light-btn", class: 'btn btn-success' do  %>
+              <%= "I'm done!" %>
+            <% end %>
+            <%= form_tag set_error_description_enlistment_task_path(et.id, coming_from: 'enlistment') do %>
+              <%= text_area_tag :error_description, et.error_description, placeholder: 'Enter your error here' %>
+              <%= submit_tag 'submit error' %>
+            <% end -%>
+
+          <% elsif et.status == 'green_light' %>
+            <%= link_to set_status_enlistment_task_path(et.id, status: 'working', coming_from: 'enlistment'), id: "et-#{et.id}-working-btn", class: 'btn' do %>
+              <%= "Still working" %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="span6">
+
+
+    </div>
 
   </div>
-<% end %>
+</div>
+
+<%= subscribe_to "/status/update" %>

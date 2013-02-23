@@ -2,7 +2,14 @@
   $(".et_<%= @enlistment_task.id %>").replaceWith("<%= j(render('status')) %>");
   <% if @enlistment_task.status == 'red_light' %>
     $("#error-descriptions").append("<%= j(render('error_description')) %>")
+    $("#et-<%= @enlistment_task.id %>").append("<%= j(render('error_description')) %>")
+    $("#et-<%= @enlistment_task.id %>").removeClass("et-green_light").addClass("et-red_light %>")
   <% elsif @enlistment_task.status == 'green_light' %>
+    $("#error-description-<%= @enlistment_task.id %>").detach()
+    $("#et-<%= @enlistment_task.id %>").removeClass("et-red_light").addClass("et-green_light")
+    $("#et-<%= @enlistment_task.id %>-red-light-btn").hide()
+    $("#et-<%= @enlistment_task.id %>-green-light-btn").hide()
+  <% elsif @enlistment_task.status == 'working' %>
     $("#error-description-<%= @enlistment_task.id %>").detach()
   <% end %>
 <% end %>

@@ -1,0 +1,3 @@
+<%= link_to set_status_enlistment_task_path(@enlistment_task.id, status: 'working', coming_from: 'enlistment'), remote: true, id: "et-#{@enlistment_task.id}-working-btn", class: 'btn' do %>
+  <%= "Still working" %>
+<% end %>

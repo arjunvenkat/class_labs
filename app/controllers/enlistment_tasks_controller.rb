@@ -4,7 +4,11 @@ class EnlistmentTasksController < ApplicationController
     @enlistment_task.status = params[:status]
     respond_to do |format|
       if @enlistment_task.save
-        format.html { redirect_to @enlistment_task.enlistment.lab, notice: 'Status updated' }
+        if params[:coming_from] == 'enlistment'
+          format.html {redirect_to @enlistment_task.enlistment}
+        else
+          format.html { redirect_to @enlistment_task.enlistment.lab, notice: 'Status updated' }
+        end
         format.js
       else
         format.html { redirect_to @enlistment_task.enlistment.lab, notice: 'error updating status' }

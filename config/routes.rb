@@ -1,4 +1,7 @@
 ClassLabs::Application.routes.draw do
+  resources :errors
+
+
   resources :users do
     member do
     get 'set_status'
