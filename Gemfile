@@ -9,6 +9,7 @@ gem 'heroku'
 group :development do
   gem 'sqlite3', '1.3.7'
   gem "better_errors"
+  gem "quiet_assets"
 end
 
 group :production do

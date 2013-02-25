@@ -1,16 +1,40 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
+<div class="container">
+  <div class="row">
+    <div class="span12">
 
-<ul>
-<% @user.enlistments.each do |enlistment| %>
-  <li><%= link_to enlistment.lab.name, enlistment %></li>
-<% end %>
-</ul>
+      <h2>Welcome back, <%= @user.name %>!</h2>
+
+      <p>
+        <b>Your email:</b>
+        <%= @user.email %>
+      </p>
+
+      <h4>Click on a lab to get started</h4>
+      <ul>
+      <% @user.enlistments.each do |enlistment| %>
+        <li><%= link_to enlistment.lab.name, enlistment %></li>
+      <% end %>
+      </ul>
+
+      <h3>- or -</h3>
+
+      <h4>Enroll in a lab</h4>
+
+      <%= form_for @enlistment do |f| -%>
+        <%= f.hidden_field :user_id, value: @user.id %>
+        <%= f.collection_select :lab_id, Lab.all, :id, :name %>
+        <%= f.submit :enroll %>
+      <% end -%>
 
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+
+
+      <%= link_to 'Edit', edit_user_path(@user) %> |
+      <%= link_to 'Back', users_path %>
+
+    </div>
+  </div>
+</div>
+

@@ -1,6 +1,22 @@
-<h1>Sign In!</h1>
 
-<%= form_tag '/sessions' do %>
-  <div class="field"><%= label_tag :name %><%= text_field_tag :name %></div>
-  <%= submit_tag 'Let Me In!' %>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="span12">
+      <h1>Sign In!</h1>
+
+      <%= form_tag '/sessions' do %>
+        <div class="field">
+          <%= label_tag :name %>
+          <%= text_field_tag :name %>
+        </div>
+        <div class="field">
+          <%= label_tag :password %>
+          <%= password_field_tag :password %>
+        </div>
+
+
+        <%= submit_tag 'Let Me In!' %>
+      <% end %>
+    </div>
+  </div>
+</div>

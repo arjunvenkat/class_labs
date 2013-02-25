@@ -5,14 +5,16 @@ class SessionsController < ApplicationController
   end
 
   def create
-    session[:user_name] = params[:name]
-    redirect_to "/labs/1"
+    user = User.find_by_name(params[:name])
+    session[:user_id] = user.id
+
+    redirect_to user
   end
 
 
 
   def destroy
     reset_session
-    redirect_to "/labs/1"
+    redirect_to root_url
   end
 end

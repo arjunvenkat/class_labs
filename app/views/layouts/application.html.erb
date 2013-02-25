@@ -7,9 +7,8 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<% if session[:user_name] %>
-  <p>Hi, <%= session[:user_name] %></p>
-  <p><%= link_to "Sign Out", "/logout" %></p>
+<% if session[:user_id] %>
+  <p>Hi, <%= User.find(session[:user_id]).name %> <%= link_to "Sign Out", "/logout" %></p>
 <% else %>
   <p><%= link_to("login", '/login') %></p>
 <% end %>

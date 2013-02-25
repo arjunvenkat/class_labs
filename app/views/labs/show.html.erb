@@ -19,7 +19,7 @@
         <% @tasks.each do |task| %>
           <tr>
             <!-- weird strategy for listing enlistments tasks below to hack pas a heroku error that reordered the list on refresh -->
-            <td><%= task.description %></td>
+            <td class="task-description"><%= task.description %></td>
             <% @lab.enlistments.each do |enlistment| %>
 
               <% enlistment_task = EnlistmentTask.where(enlistment_id: enlistment.id, task_id: task.id).first %>
@@ -58,60 +58,6 @@
   </div>
 </div>
 
-<div class="container">
-  <div class="row">
-    <div class="span6">
-      <% if @current_enlistment %>
-        <% name = @current_enlistment.user.name %>
-        <h2><%= "#{name.capitalize}'s Tasks" %></h2>
-        <table id="user_tasks" class="table table-striped table-hover">
-          <tr>
-            <th>Task</th>
-            <th>Status</th>
-          </tr>
-          <% unless @current_enlistment == nil %>
-            <% sorted_enlistment_tasks = @current_enlistment.enlistment_tasks.sort_by(&:created_at) %>
-            <% sorted_enlistment_tasks.each do |enlistment_task| %>
-              <tr>
-                <td><%= enlistment_task.task.description %></td>
-                <td class="et_<%=enlistment_task.id  %>">
-                <% if enlistment_task.status == "working" %>
-                  <%= link_to(image_tag('empty_circle.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "red_light"), remote: true) %>
-                <% elsif enlistment_task.status == "red_light" %>
-                  <%= link_to(set_status_enlistment_task_path(enlistment_task.id, status: "green_light"), remote: true, class: 'tooltip') do %>
-                    <%= image_tag('red_dot.png', size: '16x16') %>
-                    <span><%= enlistment_task.error_description %></span>
-                  <% end %>
-                <% elsif enlistment_task.status == "green_light" %>
-                  <%= link_to(image_tag('green_dot.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "working"), remote: true) %>
-                <% end %>
-                </td>
-              </tr>
-            <% end %>
-          <% end %>
-        </table>
-      <% end %>
-    </div>
-    <div class="span6">
-      <div id="error-descriptions">
-        <% if @red_light_tasks.present? %>
-          <h2 id='error-descriptions-header'>
-            Add Error Descriptions
-          </h2>
-          <% @red_light_tasks.each do |et| %>
-            <div id="error-description-<%= et.id %>">
-              <%= form_tag set_error_description_enlistment_task_path(et.id) do %>
-                <%= et.task.description %>
-                <%= text_field_tag :error_description, et.error_description %>
-                <%= submit_tag 'submit error' %>
-              <% end -%>
-            </div>
-          </div>
-        <% end -%>
-      <% end %>
-    </div>
-  </div>
-</div>
 
 
 <%= link_to 'Edit', edit_lab_path(@lab) %> |

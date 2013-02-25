@@ -1,5 +1,13 @@
 ClassLabs::Application.routes.draw do
-  resources :errors
+
+  root to: 'Pages#landing'
+
+  resources :roadblocks do
+    member do
+      get 'set_status'
+      post 'set_solution'
+    end
+  end
 
 
   resources :users do
@@ -18,9 +26,9 @@ ClassLabs::Application.routes.draw do
   get '/enlistment_tasks/:id/set_status'=> 'enlistment_tasks#set_status', :as => :set_status_enlistment_task
   post '/enlistment_tasks/:id/set_error_description' => 'enlistment_tasks#set_error_description', :as => :set_error_description_enlistment_task
 
-  get '/login' => 'sessions#new'
+  get '/login' => 'sessions#new', as: 'login'
   post "sessions" => 'sessions#create'
-  get '/logout' => 'sessions#destroy'
+  get '/logout' => 'sessions#destroy', as: 'logout'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

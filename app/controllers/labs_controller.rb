@@ -18,11 +18,7 @@ class LabsController < ApplicationController
     @task = Task.new
     @enlistments = @lab.enlistments
     @enlistment_tasks_with_errors = EnlistmentTask.where(:status => 'red_light')
-    @current_user = User.find_by_name(session[:user_name])
-    unless @current_user == nil
-      @current_enlistment = Enlistment.where(:user_id => @current_user.id, :lab_id => @lab.id).first
-    end
-    @red_light_tasks = @current_enlistment.red_light_tasks
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @lab }

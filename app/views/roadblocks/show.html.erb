@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Description:</b>
+  <%= @roadblock.description %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @roadblock.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_roadblock_path(@roadblock) %> |
+<%= link_to 'Back', roadblocks_path %>

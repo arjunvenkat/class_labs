@@ -15,3 +15,11 @@
 //= require private_pub
 //= require foundation
 //= require_tree .
+
+
+
+$(document).ready(function () {
+  $("[rel=tooltip]").tooltip();
+
+  $('.tooltip-demo').tooltip();
+});

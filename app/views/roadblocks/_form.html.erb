@@ -1,0 +1,29 @@
+<%= form_for(@roadblock) do |f| %>
+  <% if @roadblock.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@roadblock.errors.count, "error") %> prohibited this roadblock from being saved:</h2>
+
+      <ul>
+      <% @roadblock.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :solution %><br />
+    <%= f.text_area :solution %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.select :status, options_for_select(['resolved', 'unresolved', 'resolved_with_solution'], @roadblock.status) %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -2,43 +2,77 @@
 <div class="container">
   <div class="row">
     <div class="span12">
-      <h2>Lab: <%= @enlistment.lab.name %> </h2>
+      <h2><%= @enlistment.lab.name %></h2>
     </div>
   </div>
 
   <div class="row">
-    <div class="span12">
+    <div class="span4">
       <% @enlistment.enlistment_tasks.each do |et| %>
         <div id="et-<%= et.id %>" class="et-<%= et.status %>">
-          <h3><%= et.task.description %></h3>
-          <% if et.status == 'working' %>
-            <%= link_to set_status_enlistment_task_path(et.id, status: 'green_light', coming_from: 'enlistment'), id: "et-#{et.id}-green-light-btn", class: 'btn btn-success' do  %>
-              <%= "I'm done!" %>
-            <% end %>
-            <%= link_to set_status_enlistment_task_path(et.id, status: 'red_light', coming_from: 'enlistment'), id: "et-#{et.id}-red-light-btn", class: 'btn btn-danger' do %>
-              <%= "I'm stuck!" %>
-            <% end %>
-          <% elsif et.status == 'red_light' %>
-            <%= link_to set_status_enlistment_task_path(et.id, status: 'green_light', coming_from: 'enlistment'), id: "et-#{et.id}-red-light-btn", class: 'btn btn-success' do  %>
-              <%= "I'm done!" %>
-            <% end %>
-            <%= form_tag set_error_description_enlistment_task_path(et.id, coming_from: 'enlistment') do %>
-              <%= text_area_tag :error_description, et.error_description, placeholder: 'Enter your error here' %>
-              <%= submit_tag 'submit error' %>
-            <% end -%>
+          <div>
+            <% if et.status == 'working' %>
+              <h4><%= et.task.description %></h4>
+              <%= link_to set_status_enlistment_task_path(et.id, status: 'green_light', coming_from: 'enlistment'), id: "et-#{et.id}-green-light-btn", class: 'btn btn-success' do  %>
+                <%= "I'm done!" %>
+              <% end %>
+              <%= link_to set_status_enlistment_task_path(et.id, status: 'red_light', coming_from: 'enlistment'), id: "et-#{et.id}-red-light-btn", class: 'btn btn-danger' do %>
+                <%= "I'm stuck!" %>
+              <% end %>
+            <% elsif et.status == 'red_light' %>
+              <h4><%= et.task.description %></h4>
+              <%= link_to "I'm done!", set_status_enlistment_task_path(et.id, status: 'green_light', coming_from: 'enlistment'), id: "et-#{et.id}-red-light-btn", class: 'btn btn-success' %>
+                <div>
+                  <ul>
+                    <% et.roadblocks.each do |roadblock| %>
+                      <li>
+                        <%= link_to edit_roadblock_url(roadblock), class: 'more-info' do %>
+                          <%= truncate(roadblock.description, length: 25) %>
+                        <% end %>
+                         -
+                        <% if roadblock.status == 'unresolved' %>
+                          <%= link_to 'Fixed!', set_status_roadblock_url(roadblock.id, status: 'resolved'), class: 'btn btn-success btn-small' %>
+                        <% elsif roadblock.status == 'resolved' %>
+                          <%= form_tag set_solution_roadblock_url(roadblock.id) do %>
+                            <%= hidden_field_tag 'id', roadblock.id %>
+                            <%= hidden_field_tag 'status', 'resolved_with_solution' %>
+                            <%= label_tag 'your solution' %>
+                            <%= text_area_tag 'solution', roadblock.solution, placeholder: 'Enter your solution here' %>
+                            <div>
+                            <%= submit_tag 'submit solution' %>
+                            </div>
+                          <% end -%>
+                        <% elsif roadblock.status == 'resolved_with_solution' %>
+                          closed -
+                          <%= link_to 're-open', set_status_roadblock_url(roadblock.id, status: 'unresolved')%>
+                        <% end %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
 
-          <% elsif et.status == 'green_light' %>
-            <%= link_to set_status_enlistment_task_path(et.id, status: 'working', coming_from: 'enlistment'), id: "et-#{et.id}-working-btn", class: 'btn' do %>
-              <%= "Still working" %>
+                 <div>
+                   <%= form_tag roadblocks_url do %>
+                     <%= hidden_field_tag 'roadblock[enlistment_task_id]', et.id %>
+                     <%= hidden_field_tag 'roadblock[status]', 'unresolved' %>
+
+                     <%= text_area_tag 'roadblock[description]', "", placeholder: 'Enter your error here' %>
+                     <div>
+                       <%= submit_tag 'submit error' %>
+                     </div>
+                   <% end -%>
+                </div>
+            <% elsif et.status == 'green_light' %>
+              <h4><%= truncate(et.task.description, length:30) %></h4>
+              <%= link_to "re-open", set_status_enlistment_task_path(et.id, status: 'red_light', coming_from: 'enlistment'), id: "et-#{et.id}-red-light-btn", class: 'btn'%>
             <% end %>
-          <% end %>
+          </div>
         </div>
+
+
       <% end %>
     </div>
-    <div class="span6">
 
-
-    </div>
 
   </div>
 </div>
