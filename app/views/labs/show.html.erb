@@ -29,7 +29,6 @@
               <% elsif enlistment_task.status == "red_light" %>
                 <%= link_to(set_status_enlistment_task_path(enlistment_task.id, status: "green_light"), remote: true, class: 'tooltip') do %>
                   <%= image_tag('red_dot.png', size: '16x16') %>
-                  <span><%= enlistment_task.error_description %></span>
                 <% end %>
               <% elsif enlistment_task.status == "green_light" %>
                 <%= link_to(image_tag('green_dot.png', size: '16x16'), set_status_enlistment_task_path(enlistment_task.id, status: "working"), remote: true) %>
