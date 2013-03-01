@@ -21,5 +21,23 @@
 $(document).ready(function () {
   $("[rel=tooltip]").tooltip();
 
-  $('.tooltip-demo').tooltip();
+  $('.tooltip-test').qtip({
+   content: 'I\'m at the top right of my target',
+
+   style: {
+         width: 300,
+         padding: 5,
+         background: '#A2D959',
+         color: 'green',
+         textAlign: 'center',
+         border: {
+            width: 7,
+            radius: 5,
+            color: 'red'
+         },
+         tip: 'topLeft',
+         name: 'dark' // Inherit the rest of the attributes from the preset dark style
+      }
+});
+
 });

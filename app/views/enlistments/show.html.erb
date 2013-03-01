@@ -63,7 +63,7 @@
                    <% end -%>
                 </div>
             <% elsif et.status == 'green_light' %>
-              <h4><%= truncate(et.task.description, length:30) %></h4>
+              <span title="<%= et.task.description %>" class="tooltip-test"><h4><%= truncate(et.task.description, length:30) %></h4></span>
               <%= link_to "re-open", set_status_enlistment_task_path(et.id, status: 'red_light', coming_from: 'enlistment'), id: "et-#{et.id}-red-light-btn", class: 'btn'%>
             <% end %>
           </div>
