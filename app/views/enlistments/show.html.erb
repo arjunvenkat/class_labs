@@ -8,7 +8,7 @@
 
   <div class="row">
     <div class="span4">
-      <% @enlistment.enlistment_tasks.each do |et| %>
+      <% @enlistment.enlistment_tasks.sort_by(&:created_at).each do |et| %>
         <div id="et-<%= et.id %>" class="et-<%= et.status %>">
           <div>
             <% if et.status == 'working' %>
